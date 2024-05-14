@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 require('dotenv').config();
-require('body-parser').config();
+const bodyParser = require('body-parser');
 
 const path = require('path');
 
@@ -51,8 +51,15 @@ const path = require('path');
 //     res.json({ name: `${firstname} ${lastname}`});
 // })
 
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 
+app.post('/name', (req, res) => {
+    let firstname = req.body.first;
+    let lastname = req.body.last;
 
+    res.json({name: `${firstname} ${lastname}`})
+})
 
 
 
